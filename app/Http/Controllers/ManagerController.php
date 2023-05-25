@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use RealRashid\SweetAlert\Facades\Alert;
-use Illuminate\Http\Request;
-use App\Models\Inspection;
 use App\Models\Order;
+use App\Models\Inspection;
+use App\Models\Scheduller;
+use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 
 class ManagerController extends Controller
@@ -90,6 +91,11 @@ class ManagerController extends Controller
 
                 ]);
 
+                Order::where('id', $request->order_id)->update([
+                    'tire_status' => 'scheduller',
+                ]);
+    
+
                 Alert::success('Success','Berhasil inspeksi');
                 return redirect()->back();
 
@@ -103,7 +109,49 @@ class ManagerController extends Controller
 
     public function manager_scheduller_page($id){
 
-        return view('manager.scheduller');
+        $inspection = Inspection::with('order')->where('id', $id)->get();
+        // dd($inspection);
+        return view('manager.scheduller',compact('inspection'));
+
+    }
+
+    public function manager_scheduller_action(Request $request){
+
+        try {
+            
+            Scheduller::create([
+
+                'order_id'              => $request->order_id,
+                'inspection_id'         => $request->inspection_id,
+                'total_tire'            => $request->total_tire,
+                'initial_inspection'    => $request->initial_inspection,
+                'washing'               => $request->washing,
+                'hotroom'               => $request->hotroom,
+                'flexible_buffing'      => $request->flexible_buffing,
+                'tire_washing'          => $request->tire_washing,
+                'cementing'             => $request->cementing,
+                'building_perfection'   => $request->building_perfection,
+                'grooving'              => $request->grooving,
+                'curing'                => $request->curing,
+                'finishing'             => $request->finishing,
+                'final_inspection'      => $request->final_inspection,
+                'total_hour'            => $request->total_hour,
+                'start_reparation_date' => $request->start_reparation_date,
+                'end_reparation_date'   => $request->end_reparation_date,
+                'estimasi_due_date'     => $request->estimasi_due_date,
+
+            ]);
+
+            Order::where('id', $request->order_id)->update([
+                'tire_status' => 'reparation',
+            ]);
+
+            Alert::success('Success','Berhasil melakukan scheduller');
+            return redirect()->back();
+
+        } catch (\Throwable $e) {
+            dd($e);
+        }
 
     }
 

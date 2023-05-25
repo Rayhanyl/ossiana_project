@@ -45,13 +45,115 @@
 
     <div class="container-fluid py-4">
 
+        @foreach ($inspection as $item)
         <div class="row">
             <div class="card">
                 <div class="card-body">
-                    <h3>Coming soon!</h3>
+                    <a href="{{ route ('manager.detail.page', $item->order->id)}}">Back</a>
+                    <h3>Scheduller Tire</h3>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12 col-lg-4">
+                            <h5>Queue number</h5>
+                            <p class="fs-5">{{ $item->order->queue_number }}</p>
+                        </div>
+                        <div class="col-12 col-lg-4">
+                            <h5>Total Tire</h5>
+                            <p class="fs-5">{{ $item->order->total_tire }}</p>
+                        </div>
+                        <div class="col-12 col-lg-4">
+                            <h5>Size Tire</h5>
+                            <p class="fs-5">{{ $item->order->size_tire }}</p>
+                        </div>
+                        <hr>
+                        <div class="col-12">
+                            <form class="row" action="{{ route ('manager.scheduller.action') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="order_id" value="{{ $item->order->id }}">
+                                <input type="hidden" name="inspection_id" value="{{ $item->id }}">
+                                <input type="hidden" name="total_tire" value="{{ $item->order->total_tire }}">
+                                <div class="col-12 col-lg-2 form-group">
+                                    <label for="initial_inspection" class="form-control-label">Initial
+                                        Inspection</label>
+                                    <input class="form-control" type="number" min="1" name="initial_inspection"
+                                        id="initial_inspection">
+                                </div>
+                                <div class="col-12 col-lg-2 form-group">
+                                    <label for="washing" class="form-control-label">Washing</label>
+                                    <input class="form-control" type="number" min="1" name="washing" id="washing">
+                                </div>
+                                <div class="col-12 col-lg-2 form-group">
+                                    <label for="hotroom" class="form-control-label">Hot Room</label>
+                                    <input class="form-control" type="number" min="1" name="hotroom" id="hotroom">
+                                </div>
+                                <div class="col-12 col-lg-2 form-group">
+                                    <label for="flexible_buffing" class="form-control-label">Flexible Buffing</label>
+                                    <input class="form-control" type="number" min="1" name="flexible_buffing"
+                                        id="flexible_buffing">
+                                </div>
+                                <div class="col-12 col-lg-2 form-group">
+                                    <label for="tire_washing" class="form-control-label">Tire Washing</label>
+                                    <input class="form-control" type="number" min="1" name="tire_washing"
+                                        id="tire_washing">
+                                </div>
+                                <div class="col-12 col-lg-2 form-group">
+                                    <label for="cementing" class="form-control-label">Cementing</label>
+                                    <input class="form-control" type="number" min="1" name="cementing" id="cementing">
+                                </div>
+                                <div class="col-12 col-lg-2 form-group">
+                                    <label for="building_perfection" class="form-control-label">Building
+                                        Perfection</label>
+                                    <input class="form-control" type="number" min="1" name="building_perfection"
+                                        id="building_perfection">
+                                </div>
+                                <div class="col-12 col-lg-2 form-group">
+                                    <label for="grooving" class="form-control-label">Grooving</label>
+                                    <input class="form-control" type="number" min="1" name="grooving" id="grooving">
+                                </div>
+                                <div class="col-12 col-lg-2 form-group">
+                                    <label for="curing" class="form-control-label">Curing</label>
+                                    <input class="form-control" type="number" min="1" name="curing" id="curing">
+                                </div>
+                                <div class="col-12 col-lg-2 form-group">
+                                    <label for="finishing" class="form-control-label">Finishing</label>
+                                    <input class="form-control" type="number" min="1" name="finishing" id="finishing">
+                                </div>
+                                <div class="col-12 col-lg-2 form-group">
+                                    <label for="final_inspection" class="form-control-label">Final Inspection</label>
+                                    <input class="form-control" type="number" min="1" name="final_inspection"
+                                        id="final_inspection">
+                                </div>
+                                <div class="col-12 col-lg-2 form-group">
+                                    <label for="total_hour" class="form-control-label">Total Hours</label>
+                                    <input class="form-control" type="number" min="1" name="total_hour" id="total_hour">
+                                </div>
+                                <div class="col-12 col-lg-4 form-group">
+                                    <label for="start_reparation_date" class="form-control-label">Start Reparation
+                                        Date</label>
+                                    <input class="form-control" type="date" min="1" name="start_reparation_date"
+                                        id="start_reparation_date">
+                                </div>
+                                <div class="col-12 col-lg-4 form-group">
+                                    <label for="end_reparation_date" class="form-control-label">End Reparation
+                                        Date</label>
+                                    <input class="form-control" type="date" min="1" name="end_reparation_date"
+                                        id="end_reparation_date">
+                                </div>
+                                <div class="col-12 col-lg-4 form-group">
+                                    <label for="estimasi_due_date" class="form-control-label">Estimasi Due Date</label>
+                                    <input class="form-control" type="date" min="1" name="estimasi_due_date"
+                                        id="estimasi_due_date">
+                                </div>
+                                <div class="col-12 text-center my-2">
+                                    <button type="submit" class="btn bg-gradient-primary w-50">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        @endforeach
 
         <footer class="footer pt-3  ">
             <div class="container-fluid">

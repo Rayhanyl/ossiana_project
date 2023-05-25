@@ -48,4 +48,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/OrderDetailManager/{id}', [ManagerController::class, 'manager_detail_page'])->name('manager.detail.page');
     Route::post('/InspectAction', [ManagerController::class, 'manager_inspect_action'])->name('manager.inspect.action');
     Route::get('/SchedullerManager/{id}', [ManagerController::class, 'manager_scheduller_page'])->name('manager.scheduller.page');
+    Route::post('/SchedullerAction', [ManagerController::class, 'manager_scheduller_action'])->name('manager.scheduller.action');
 });

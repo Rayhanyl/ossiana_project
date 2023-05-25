@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Svg\Tag\Rect; 
 use App\Models\Order;
+use App\Models\Inspection;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,13 @@ class CustomerController extends Controller
     }
 
     public function customer_dashboard(){
-        return view('customer.index');
+        $orders = Order::where('user_id', Auth::id())->get();
+        $inspection = Inspection::with('order')->where('user_id', Auth::id())->get();
+        $order = $orders->count();
+        $approved = $orders->where('status','approved')->count();
+        $waiting = $orders->where('status','waiting')->count();
+        $rejected = $orders->whereIn('status', 'rejected')->count();
+        return view('customer.index',compact('inspection','order','approved','waiting','rejected'));
     }
 
     public function catalog_page(){

@@ -198,6 +198,7 @@
             var nominal = $('#nominal-fp');
             nominal.html('Rp ' + Number(price).toLocaleString('id-ID'));
         });
+        
         $('#price_down_payment').on('input', function () {
             var price = $('#price_down_payment').val();
             var nominal = $('#nominal-dp');

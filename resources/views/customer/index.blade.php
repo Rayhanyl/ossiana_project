@@ -58,139 +58,141 @@
     </nav>
     <!-- End Navbar -->
     <div class="container-fluid py-4">
-        <div class="row">
-            <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                <div class="card">
-                <div class="card-body p-3">
-                    <div class="row">
-                    <div class="col-8">
-                        <div class="numbers">
-                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Order</p>
-                        <h5 class="font-weight-bolder mb-0">
-                            25
-                        </h5>
-                        </div>
-                    </div>
-                    <div class="col-4 text-end">
-                        <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                        <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                <div class="card">
-                <div class="card-body p-3">
-                    <div class="row">
-                    <div class="col-8">
-                        <div class="numbers">
-                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Approved Order</p>
-                        <h5 class="font-weight-bolder mb-0">
-                            5
-                        </h5>
-                        </div>
-                    </div>
-                    <div class="col-4 text-end">
-                        <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                        <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                <div class="card">
-                <div class="card-body p-3">
-                    <div class="row">
-                    <div class="col-8">
-                        <div class="numbers">
-                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Rejected Order</p>
-                        <h5 class="font-weight-bolder mb-0">
-                            10
-                        </h5>
-                        </div>
-                    </div>
-                    <div class="col-4 text-end">
-                        <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                        <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-sm-6">
-                <div class="card">
-                <div class="card-body p-3">
-                    <div class="row">
-                    <div class="col-8">
-                        <div class="numbers">
-                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Waiting Order</p>
-                        <h5 class="font-weight-bolder mb-0">
-                            10
-                        </h5>
-                        </div>
-                    </div>
-                    <div class="col-4 text-end">
-                        <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                        <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-            </div>
-        <div class="row mt-4">
-        <div class="col-12 col-lg-12">
-            <div class="card">
-                <div class="card-body">
-                    <table class="table" id="admin-table-dashboard">
-                        <thead>
-                            <tr>
-                                <th>Customer</th>
-                                <th>Order code</th>
-                                <th>Book date</th>
-                                <th>Payment status</th>
-                                <th>Tire status</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Test</td>
-                                <td>Test</td>
-                                <td>Test</td>
-                                <td>Test</td>
-                                <td>Test</td>
-                                <td>Test</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-      </div>
-
-      <footer class="footer pt-3  ">
-        <div class="container-fluid">
-          <div class="row align-items-center justify-content-lg-between">
-            <div class="col-lg-6 mb-lg-0 mb-4">
-              <div class="copyright text-center text-sm text-muted text-lg-start">
-                © <script>
-                  document.write(new Date().getFullYear())
-                </script>,
-                made with <i class="fa fa-heart"></i> by
-                <a href="#" class="font-weight-bold" target="_blank">Ossiana tire</a>
+      <div class="row">
+          <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+              <div class="card">
+              <div class="card-body p-3">
+                  <div class="row">
+                  <div class="col-8">
+                      <div class="numbers">
+                      <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Order</p>
+                      <h5 class="font-weight-bolder mb-0">
+                          {{ $order }}
+                      </h5>
+                      </div>
+                  </div>
+                  <div class="col-4 text-end">
+                      <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                      <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                      </div>
+                  </div>
+                  </div>
               </div>
+              </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+              <div class="card">
+              <div class="card-body p-3">
+                  <div class="row">
+                  <div class="col-8">
+                      <div class="numbers">
+                      <p class="text-sm mb-0 text-capitalize font-weight-bold">Approved Order</p>
+                      <h5 class="font-weight-bolder mb-0">
+                          {{ $approved }}
+                      </h5>
+                      </div>
+                  </div>
+                  <div class="col-4 text-end">
+                      <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                      <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
+                      </div>
+                  </div>
+                  </div>
+              </div>
+              </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+              <div class="card">
+              <div class="card-body p-3">
+                  <div class="row">
+                  <div class="col-8">
+                      <div class="numbers">
+                      <p class="text-sm mb-0 text-capitalize font-weight-bold">Rejected Order</p>
+                      <h5 class="font-weight-bolder mb-0">
+                        {{ $rejected }}
+                      </h5>
+                      </div>
+                  </div>
+                  <div class="col-4 text-end">
+                      <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                      <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
+                      </div>
+                  </div>
+                  </div>
+              </div>
+              </div>
+          </div>
+          <div class="col-xl-3 col-sm-6">
+              <div class="card">
+              <div class="card-body p-3">
+                  <div class="row">
+                  <div class="col-8">
+                      <div class="numbers">
+                      <p class="text-sm mb-0 text-capitalize font-weight-bold">Waiting Order</p>
+                      <h5 class="font-weight-bolder mb-0">
+                        {{ $waiting }}
+                      </h5>
+                      </div>
+                  </div>
+                  <div class="col-4 text-end">
+                      <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                      <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
+                      </div>
+                  </div>
+                  </div>
+              </div>
+              </div>
+          </div>
+          </div>
+      <div class="row mt-4">
+      <div class="col-12 col-lg-12">
+          <div class="card">
+              <div class="card-body">
+                  <table class="table" id="admin-table-dashboard">
+                      <thead>
+                          <tr>
+                              <th>Queue number</th>
+                              <th>Order code</th>
+                              <th>Book date</th>
+                              <th>Payment status</th>
+                              <th>Tire status</th>
+                              <th>Status</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                        @foreach ($inspection as $item)
+                          <tr>
+                              <td class="text-capitalize">{{ $item->order->queue_number }}</td>
+                              <td class="text-capitalize">{{ $item->order->order_code }}</td>
+                              <td class="text-capitalize">{{ $item->order->book_date }}</td>
+                              <td class="text-capitalize">{{ $item->order->payment_status }}</td>
+                              <td class="text-capitalize">{{ $item->order->tire_status }}</td>
+                              <td class="text-capitalize">{{ $item->order->status }}</td>
+                          </tr>
+                        @endforeach
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <footer class="footer pt-3  ">
+      <div class="container-fluid">
+        <div class="row align-items-center justify-content-lg-between">
+          <div class="col-lg-6 mb-lg-0 mb-4">
+            <div class="copyright text-center text-sm text-muted text-lg-start">
+              © <script>
+                document.write(new Date().getFullYear())
+              </script>,
+              made with <i class="fa fa-heart"></i> by
+              <a href="#" class="font-weight-bold" target="_blank">Ossiana tire</a>
             </div>
           </div>
         </div>
-      </footer>
-    </div>
+      </div>
+    </footer>
+  </div>        
 
 @push('script')
 <script>
