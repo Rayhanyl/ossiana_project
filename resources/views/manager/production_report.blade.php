@@ -154,6 +154,14 @@
         <div class="row mt-4">
             <div class="col-12 col-lg-12">
                 <div class="card">
+                    <div class="card-header row">
+                        <div class="col-6">
+                            <h3>Production Report</h3>
+                        </div>
+                        <div class="col-6 text-end">
+                            <a href="{{ route ('manager.production.report.pdf') }}" class="btn bg-gradient-primary">Download</a>
+                        </div>
+                    </div>
                     <div class="card-body">
                         <table class="table" id="manager-table-production-report">
                             <thead>

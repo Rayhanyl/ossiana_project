@@ -111,7 +111,10 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
-                                @if ($order->status_dp == null || $order->status_dp == 'rejected')
+                                @if ($order->price_down_payment != null || $order->status_dp == 'rejected')
+                                @if ($order->status_dp == 'approved')
+                                <p>- Pembayaran DP telah di approve </p>
+                                @else
                                 <form class="row" action="{{ route ('upload.dp') }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
@@ -135,13 +138,18 @@
                                         <button type="submit" class="btn bg-gradient-info w-50">Submit</button>
                                     </div>
                                 </form>
-                                @elseif ($order->price_full_payment != null)
+                                @endif
+                                @endif
+                                @if ($order->price_full_payment != null || $order->status_fp == 'rejected')
+                                @if ($order->status_fp == 'approved')
+                                <p>- Pembayaran FP telah di approve </p>
+                                @else
                                 <form class="row" action="{{ route ('upload.fp') }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
                                     <input type="hidden" value="{{ $order->id }}" name="order_id">
                                     <div class="col-12 col-lg-3 form-group">
-                                        <label class="form-control-label">Invoice Down Payment</label>
+                                        <label class="form-control-label">Invoice Full Payment</label>
                                         <div>
                                             <a href="{{ route ('invoice.fp',$order->id) }}"
                                                 class="btn btn-icon btn-3 bg-gradient-secondary">
@@ -152,13 +160,14 @@
                                         </div>
                                     </div>
                                     <div class="col-12 col-lg-5 form-group">
-                                        <label for="file_dp" class="form-control-label">Proof of Payment DP</label>
-                                        <input class="form-control" type="file" name="file_dp" id="file_dp">
+                                        <label for="file_fp" class="form-control-label">Proof of Payment FP</label>
+                                        <input class="form-control" type="file" name="file_fp" id="file_fp">
                                     </div>
                                     <div class="col-4 text-center my-auto">
                                         <button type="submit" class="btn bg-gradient-info w-50">Submit</button>
                                     </div>
                                 </form>
+                                @endif
                                 @endif
                             </div>
                             <div class="col-12 my-4">
@@ -178,7 +187,8 @@
                                         @if ($order->pict_full_payment == null)
                                         <p>Have not uploaded proof of payment.</p>
                                         @else
-                                        <img src="{{ asset ('assets/dp/'.$order->pict_full_payment) }}"
+                                        <img class="w-75 rounded"
+                                            src="{{ asset ('assets/fp/'.$order->pict_full_payment) }}"
                                             alt="FullPayment">
                                         @endif
                                     </div>

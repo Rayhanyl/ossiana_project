@@ -176,7 +176,7 @@
                                   </p>
                                 </td>
                                 <td class="text-capitalize text-center">
-                                  <a href="{{ route ('admin.detail.page', $order->id) }}" class="btn btn-primary btn-sm">Detail Order</a>
+                                  <a href="{{ route ('admin.detail.page', $order->id) }}" class="btn btn-primary btn-sm {{ $order->status == 'rejected' ? 'disabled':'' }}">Detail Order</a>
                                 </td>
                             </tr>
                           @endforeach

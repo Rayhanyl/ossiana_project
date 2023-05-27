@@ -58,32 +58,34 @@ class AdminController extends Controller
 
     }
 
-    public function price_fullpayment(Request $request){
+    // public function price_fullpayment(Request $request){
 
-        try {
+    //     try {
             
-            Order::where('id', $request->order_id)->update([
-                'price_down_payment' => $request->input('price_down_payment'),
-            ]);
+    //         Order::where('id', $request->order_id)->update([
+    //             'price_down_payment' => $request->input('price_down_payment'),
+    //         ]);
 
-            Alert::success('Success', 'Price update successfully');
-            return redirect()->back();
+    //         Alert::success('Success', 'Price update successfully');
+    //         return redirect()->back();
 
-        } catch (\Throwable $e) {
+    //     } catch (\Throwable $e) {
             
-            dd($e);
-            return redirect()->back();
+    //         dd($e);
+    //         return redirect()->back();
 
-        }
+    //     }
 
-    }
+    // }
 
     public function confirmation_order(Request $request){
         
         $validator = Validator::make($request->all(), [
             'queue_number'           => 'required|unique:orders,queue_number,',
+            'status'                 => 'required|in:approved,rejected',
         ],[
             'queue_number'           => 'No antrian sudah ada',
+            'status'                 => 'Order status tidak boleh kosong',
         ]);
 
         if ($request->status == 'rejected') {
@@ -112,7 +114,6 @@ class AdminController extends Controller
 
             if ($validator->fails()) {
         
-                Alert::warning('Warning', 'No antrian sudah ada');
                 return redirect()->back()->withErrors($validator)->withInput()->with('warning', 'Field not complete!');
             
             }else{
@@ -208,7 +209,7 @@ class AdminController extends Controller
             try {
             
                 Order::where('id', $request->order_id)->update([
-                    'status_dp'  => $request->input('status'),
+                    'status_fp'  => $request->input('status'),
                 ]);
     
                 Alert::success('Success', 'Status update successfully');
@@ -237,7 +238,7 @@ class AdminController extends Controller
         $data['orders'] = Order::with('user')->where('id', $id)->get();
         $pdf = PDF::loadView('invoice.invoice_fp',$data,['orientation' => 'portrait']);
         $pdf->setPaper('A4', 'portrait');
-        return $pdf->download('invoice.pdf');
+        return $pdf->download('Invoice_Full_Payment.pdf');
 
     }
 

@@ -93,7 +93,9 @@ class ManagerController extends Controller
                 ]);
 
                 Order::where('id', $request->order_id)->update([
-                    'tire_status' => 'scheduller',
+                    'tire_status'        => 'scheduller',
+                    'price_full_payment' => $request->inspection_cost,
+                    'payment_status'     => 'pay_fp',
                 ]);
     
 

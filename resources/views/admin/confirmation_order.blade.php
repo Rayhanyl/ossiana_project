@@ -136,14 +136,20 @@
                                         <label for="queue_number" class="form-control-label">Queue Number</label>
                                         <input class="form-control" type="number" min="1" name="queue_number"
                                             id="queue_number">
+                                        @error('queue_number')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="col form-group">
                                         <label for="status" class="form-control-label">Confirm Order Status</label>
-                                        <select class="form-control" name="status" id="status">
+                                        <select class="form-control" name="status" id="status" required>
                                             <option>-- select --</option>
                                             <option value="approved">Approved</option>
                                             <option value="rejected">Rejected</option>
                                         </select>
+                                        @error('status')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="col-12 text-center">
                                         <button type="submit" class="btn bg-gradient-info w-50">Submit</button>
@@ -169,7 +175,8 @@
                                                 <div class="form-group">
                                                     <label for="status" class="form-control-label">Confirm Payment
                                                         Dp</label>
-                                                    <select class="form-control w-75" name="status" id="status">
+                                                    <select class="form-control w-75" name="status" id="status"
+                                                        required>
                                                         <option>-- select --</option>
                                                         <option value="approved">Approved</option>
                                                         <option value="rejected">Rejected</option>
@@ -183,12 +190,13 @@
                                         </div>
                                         @endif
                                     </div>
-                                    <div class="col-12 col-lg-6 text-center">
+                                    <div class="col-12 col-lg-6">
                                         <h6>Picture Full Payment</h6>
                                         @if ($order->pict_full_payment == null)
                                         <p>Have not uploaded proof of payment.</p>
                                         @else
-                                        <img src="{{ asset ('assets/dp/'.$order->pict_full_payment) }}"
+                                        <img class="rounded w-75"
+                                            src="{{ asset ('assets/fp/'.$order->pict_full_payment) }}"
                                             alt="FullPayment">
                                         <div class="my-2">
                                             @if ($order->status_fp == 'rejected' || $order->status_fp == 'waiting')
@@ -197,15 +205,16 @@
                                                 <input type="hidden" value="{{ $order->id }}" name="order_id">
                                                 <div class="form-group">
                                                     <label for="status" class="form-control-label">Confirm Payment
-                                                        Fp</label>
-                                                    <select class="form-control w-75" name="status" id="status">
+                                                    Fp</label>
+                                                    <select class="form-control w-75" name="status" id="status"
+                                                        required>
                                                         <option>-- select --</option>
                                                         <option value="approved">Approved</option>
                                                         <option value="rejected">Rejected</option>
                                                     </select>
                                                 </div>
-                                                <div class="my-2">
-                                                    <button type="submit" class="btn bg-gradient-info">Submit</button>
+                                                <div class="d-grid gap-2 my-2">
+                                                    <button type="submit" class="btn bg-gradient-info w-75">Submit</button>
                                                 </div>
                                             </form>
                                             @endif
