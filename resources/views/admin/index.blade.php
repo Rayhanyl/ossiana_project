@@ -170,7 +170,11 @@
                                 <td class="text-capitalize text-center">{{ $order->book_date }}</td>
                                 <td class="text-capitalize text-center">{{ $order->payment_status }}</td>
                                 <td class="text-capitalize text-center">{{ $order->tire_status }}</td>
-                                <td class="text-capitalize text-center">{{ $order->status }}</td>
+                                <td class="text-capitalize text-center">
+                                  <p>
+                                    {{ $order->status }}
+                                  </p>
+                                </td>
                                 <td class="text-capitalize text-center">
                                   <a href="{{ route ('admin.detail.page', $order->id) }}" class="btn btn-primary btn-sm">Detail Order</a>
                                 </td>

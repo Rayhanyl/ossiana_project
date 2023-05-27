@@ -87,7 +87,7 @@
                                         <td class="text-capitalize text-center">{{ $order->tire_status }}</td>
                                         <td class="text-capitalize text-center">{{ $order->status }}</td>
                                         <td>
-                                            <a href="{{ route ('manager.detail.page', $order->id) }}" class="btn bg-gradient-primary btn-sm">Detail order</a>
+                                            <a href="{{ route ('manager.detail.page', $order->id) }}" class="btn bg-gradient-primary btn-sm {{ $order->status == 'rejected' || $order->status == 'waiting' ? 'disabled':'' }}">Detail order</a>
                                         </td>
                                     </tr>
                                 @endforeach

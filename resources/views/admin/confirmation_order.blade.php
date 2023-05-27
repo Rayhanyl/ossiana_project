@@ -54,26 +54,53 @@
                         <h3>Detail order</h3>
                     </div>
                     <div class="card-body">
-                        <div class="row">
+                        <div class="row g-3">
+                            <div class="col-12 col-lg-2">
+                                <h5>Book date</h5>
+                                <p class="detail-order-text-child text-capitalize">
+                                    {{ \Carbon\Carbon::parse($order->book_date)->format('d F Y') }}</p>
+                            </div>
                             <div class="col-12 col-lg-3">
-                                <h5>Order Code</h5>
-                                <p>{{ $order->order_code }}</p>
+                                <h5>Order code</h5>
+                                <p class="detail-order-text-child">{{ $order->order_code }}</p>
                             </div>
                             <div class="col-12 col-lg-3">
                                 <h5>Queue number</h5>
                                 @if ($order->queue_number == null)
-                                <p class="text-capitalize">wait for the admin to give the queue number</p>
+                                <p class="detail-order-text-child text-capitalize">wait for the admin to give the queue
+                                    number</p>
                                 @else
-                                <p>{{ $order->queue_number }}</p>
+                                <p class="detail-order-text-child">{{ $order->queue_number }}</p>
                                 @endif
                             </div>
-                            <div class="col-12 col-lg-3">
-                                <h5>Payment Status</h5>
-                                <p class="text-capitalize">{{ $order->payment_status }}</p>
-                            </div>
-                            <div class="col-12 col-lg-3">
+                            <div class="col-12 col-lg-2">
                                 <h5>Status</h5>
-                                <p class="text-capitalize">{{ $order->status }}</p>
+                                <p class="detail-order-text-child text-capitalize">{{ $order->status }}</p>
+                            </div>
+                            <div class="col-12 col-lg-2">
+                                <h5>Payment status</h5>
+                                <p class="detail-order-text-child text-capitalize">{{ $order->payment_status }}</p>
+                            </div>
+                            <div class="col-12 col-lg-3 text-center">
+                                <h5>Tire delivery</h5>
+                                <p class="detail-order-text-child text-capitalize">
+                                    {{ \Carbon\Carbon::parse($order->delivery_tire)->format('d F Y') }}</p>
+                            </div>
+                            <div class="col-12 col-lg-3 text-center">
+                                <h5>Total tire</h5>
+                                <p class="detail-order-text-child text-capitalize">{{ $order->total_tire }}</p>
+                            </div>
+                            <div class="col-12 col-lg-3 text-center">
+                                <h5>Size tire</h5>
+                                <p class="detail-order-text-child text-capitalize">{{ $order->size_tire}}</p>
+                            </div>
+                            <div class="col-12 col-lg-3 text-center">
+                                <h5>Tire status</h5>
+                                <p class="detail-order-text-child text-capitalize">{{ $order->tire_status }}</p>
+                            </div>
+                            <div class="col-12">
+                                <h5>Spesification Tire</h5>
+                                <p class="detail-order-text-child-tire">{{ $order->detail_order }}</p>
                             </div>
                         </div>
                     </div>
@@ -135,6 +162,7 @@
                                             src="{{ asset ('assets/dp/'.$order->pict_down_payment) }}"
                                             alt="DownPayment">
                                         <div class="my-2">
+                                            @if ($order->status_dp == 'rejected' || $order->status_dp == 'waiting')
                                             <form action="{{ route ('status.dp') }}" method="POST">
                                                 @csrf
                                                 <input type="hidden" value="{{ $order->id }}" name="order_id">
@@ -151,6 +179,7 @@
                                                     <button type="submit" class="btn bg-gradient-info">Submit</button>
                                                 </div>
                                             </form>
+                                            @endif
                                         </div>
                                         @endif
                                     </div>
@@ -161,6 +190,26 @@
                                         @else
                                         <img src="{{ asset ('assets/dp/'.$order->pict_full_payment) }}"
                                             alt="FullPayment">
+                                        <div class="my-2">
+                                            @if ($order->status_fp == 'rejected' || $order->status_fp == 'waiting')
+                                            <form action="{{ route ('status.fp') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" value="{{ $order->id }}" name="order_id">
+                                                <div class="form-group">
+                                                    <label for="status" class="form-control-label">Confirm Payment
+                                                        Fp</label>
+                                                    <select class="form-control w-75" name="status" id="status">
+                                                        <option>-- select --</option>
+                                                        <option value="approved">Approved</option>
+                                                        <option value="rejected">Rejected</option>
+                                                    </select>
+                                                </div>
+                                                <div class="my-2">
+                                                    <button type="submit" class="btn bg-gradient-info">Submit</button>
+                                                </div>
+                                            </form>
+                                            @endif
+                                        </div>
                                         @endif
                                     </div>
                                 </div>
@@ -198,7 +247,7 @@
             var nominal = $('#nominal-fp');
             nominal.html('Rp ' + Number(price).toLocaleString('id-ID'));
         });
-        
+
         $('#price_down_payment').on('input', function () {
             var price = $('#price_down_payment').val();
             var nominal = $('#nominal-dp');

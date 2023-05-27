@@ -8,6 +8,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Validator;
 use PhpParser\Node\Expr\FuncCall;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -57,44 +58,40 @@ class AdminController extends Controller
 
     }
 
-    public function confirmation_order(Request $request){
+    public function price_fullpayment(Request $request){
 
+        try {
+            
+            Order::where('id', $request->order_id)->update([
+                'price_down_payment' => $request->input('price_down_payment'),
+            ]);
+
+            Alert::success('Success', 'Price update successfully');
+            return redirect()->back();
+
+        } catch (\Throwable $e) {
+            
+            dd($e);
+            return redirect()->back();
+
+        }
+
+    }
+
+    public function confirmation_order(Request $request){
+        
         $validator = Validator::make($request->all(), [
             'queue_number'           => 'required|unique:orders,queue_number,',
         ],[
             'queue_number'           => 'No antrian sudah ada',
         ]);
-        
+
         if ($request->status == 'rejected') {
-            
-            $payment = 'rejected';
-            $tire    = 'rejected';
-            $number  = 'rejected';
-            
-        } else {
-            
-            $payment   = 'pay_dp';
-            $status_dp = 'waiting';
-            $tire      = 'inspection';
-            $number    = $request->queue_number;
-            
-        }
-        
-        if ($validator->fails()) {
-        
-            Alert::warning('Warning', 'No antrian sudah ada');
-            return redirect()->back()->withErrors($validator)->withInput()->with('warning', 'Field not complete!');
-        
-        }else{
-            
+                
             try {
         
                 Order::where('id', $request->order_id)->update([
                         'status'            => $request->input('status'),
-                        'queue_number'      => $number,
-                        'payment_status'    => $payment,
-                        'tire_status'       => $tire,
-                        'status_dp'         => $status_dp,
                     ]);
         
                     Alert::success('Success', 'Status update successfully');
@@ -105,24 +102,123 @@ class AdminController extends Controller
                 dd($e);
                 return redirect()->back();
             }
-        }
+            
+        } else {
+            
+            $payment   = 'pay_dp';
+            $status_dp = 'waiting';
+            $tire      = 'inspection';
+            $number    = $request->queue_number;
 
+            if ($validator->fails()) {
+        
+                Alert::warning('Warning', 'No antrian sudah ada');
+                return redirect()->back()->withErrors($validator)->withInput()->with('warning', 'Field not complete!');
+            
+            }else{
+                
+                try {
+            
+                    Order::where('id', $request->order_id)->update([
+                            'status'            => $request->input('status'),
+                            'queue_number'      => $number,
+                            'payment_status'    => $payment,
+                            'tire_status'       => $tire,
+                            'status_dp'         => $status_dp,
+                        ]);
+            
+                        Alert::success('Success', 'Status update successfully');
+                        return redirect()->back();
+            
+                } catch (\Exception $e) {
+    
+                    dd($e);
+                    return redirect()->back();
+                }
+            }
+            
+        }
+        
     }
 
     public function status_dp(Request $request){
 
-        try {
-            
-            Order::where('id', $request->order_id)->update([
-                'status_dp'  => $request->input('status'),
-            ]);
 
-            Alert::success('Success', 'Status update successfully');
-            return redirect()->back();
+        if ($request->status == 'approved') {
 
-        } catch (\Throwable $e) {
+            try {
             
-            dd($e);
+                Order::where('id', $request->order_id)->update([
+                    'status_dp'  => $request->input('status'),
+                    'status_fp'  => 'waiting',
+                ]);
+    
+                Alert::success('Success', 'Status update successfully');
+                return redirect()->back();
+    
+            } catch (\Throwable $e) {
+                
+                dd($e);
+    
+            }
+
+        }else{
+
+            try {
+            
+                Order::where('id', $request->order_id)->update([
+                    'status_dp'  => $request->input('status'),
+                ]);
+    
+                Alert::success('Success', 'Status update successfully');
+                return redirect()->back();
+    
+            } catch (\Throwable $e) {
+                
+                dd($e);
+    
+            }
+
+        }
+
+    }
+    public function status_fp(Request $request){
+
+
+        if ($request->status == 'approved') {
+
+            try {
+            
+                Order::where('id', $request->order_id)->update([
+                    'status_fp'       => $request->input('status'),
+                    'payment_status'  => 'paid',
+                ]);
+    
+                Alert::success('Success', 'Status update successfully');
+                return redirect()->back();
+    
+            } catch (\Throwable $e) {
+                
+                dd($e);
+    
+            }
+
+        }else{
+
+            try {
+            
+                Order::where('id', $request->order_id)->update([
+                    'status_dp'  => $request->input('status'),
+                ]);
+    
+                Alert::success('Success', 'Status update successfully');
+                return redirect()->back();
+    
+            } catch (\Throwable $e) {
+                
+                dd($e);
+    
+            }
 
         }
 
@@ -144,4 +240,5 @@ class AdminController extends Controller
         return $pdf->download('invoice.pdf');
 
     }
+
 }

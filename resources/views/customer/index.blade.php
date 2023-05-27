@@ -160,14 +160,34 @@
                           </tr>
                       </thead>
                       <tbody>
-                        @foreach ($inspection as $item)
+                        @foreach ($orders as $item)
                           <tr>
-                              <td class="text-capitalize">{{ $item->order->queue_number }}</td>
-                              <td class="text-capitalize">{{ $item->order->order_code }}</td>
-                              <td class="text-capitalize">{{ $item->order->book_date }}</td>
-                              <td class="text-capitalize">{{ $item->order->payment_status }}</td>
-                              <td class="text-capitalize">{{ $item->order->tire_status }}</td>
-                              <td class="text-capitalize">{{ $item->order->status }}</td>
+                              <td class="text-capitalize">
+                                @if ($item->queue_number == null)
+                                Don't have a queue number yet
+                                @else
+                                {{ $item->queue_number }}
+                                @endif
+                              </td>
+                              <td class="text-capitalize">{{ $item->order_code }}</td>
+                              <td class="text-capitalize">{{ $item->book_date }}</td>
+                              <td class="text-capitalize">{{ $item->payment_status }}</td>
+                              <td class="text-capitalize">{{ $item->tire_status }}</td>
+                              <td class="text-capitalize">
+                                @if ($item->status == 'rejected')
+                                <p class="fw-bold text-danger">
+                                  {{ $item->status }}
+                                </p>
+                                @elseif ($item->status == 'approved')
+                                <p class="fw-bold text-success">
+                                  {{ $item->status }}
+                                </p>
+                                @else
+                                <p class="fw-bold text-warning">
+                                  {{ $item->status }}
+                                </p>
+                                @endif
+                              </td>
                           </tr>
                         @endforeach
                       </tbody>

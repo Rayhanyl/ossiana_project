@@ -86,9 +86,23 @@
                                         <td>{{ $order->book_date }}</td>
                                         <td class="text-capitalize text-center">{{ $order->payment_status }}</td>
                                         <td class="text-capitalize text-center">{{ $order->tire_status }}</td>
-                                        <td class="text-capitalize text-center">{{ $order->status }}</td>
+                                        <td class="text-capitalize text-center">
+                                            @if ($order->status == 'rejected')
+                                            <p class="fw-bold text-danger">
+                                              {{ $order->status }}
+                                            </p>
+                                            @elseif ($order->status == 'approved')
+                                            <p class="fw-bold text-success">
+                                              {{ $order->status }}
+                                            </p>
+                                            @else
+                                            <p class="fw-bold text-warning">
+                                              {{ $order->status }}
+                                            </p>
+                                            @endif
+                                        </td>
                                         <td>
-                                            <a href="{{ route ('customer.detail.page', $order->id) }}" class="btn bg-gradient-primary btn-sm">Detail order</a>
+                                            <a href="{{ route ('customer.detail.page', $order->id) }}" class="btn bg-gradient-primary btn-sm {{ $order->status == 'rejected' ? 'disabled':'' }}">Detail order</a>
                                         </td>
                                     </tr>
                                 @endforeach

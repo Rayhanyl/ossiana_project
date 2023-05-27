@@ -23,12 +23,11 @@ class CustomerController extends Controller
 
     public function customer_dashboard(){
         $orders = Order::where('user_id', Auth::id())->get();
-        $inspection = Inspection::with('order')->where('user_id', Auth::id())->get();
         $order = $orders->count();
         $approved = $orders->where('status','approved')->count();
         $waiting = $orders->where('status','waiting')->count();
         $rejected = $orders->whereIn('status', 'rejected')->count();
-        return view('customer.index',compact('inspection','order','approved','waiting','rejected'));
+        return view('customer.index',compact('orders','order','approved','waiting','rejected'));
     }
 
     public function catalog_page(){
@@ -98,6 +97,31 @@ class CustomerController extends Controller
 
             Order::where('id', $request->order_id)->update([
                 'pict_down_payment' => $nama_file,
+            ]);
+
+            Alert::success('Success','Successful upload payment'); 
+            return redirect()->back();
+            
+        } catch (\Throwable $e) {
+
+            dd($e);
+            return redirect()->back();
+        
+        }
+
+    }
+
+    public function upload_fp(Request $request){
+
+        try {
+        
+            $file = $request->file('file_fp');
+            $nama_file = time()."_".$file->getClientOriginalName();
+            $tujuan_upload = public_path().'/assets/fp';
+            $file->move($tujuan_upload,$nama_file);
+
+            Order::where('id', $request->order_id)->update([
+                'pict_full_payment' => $nama_file,
             ]);
 
             Alert::success('Success','Successful upload payment'); 

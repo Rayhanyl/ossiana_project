@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('order_code');
-            $table->string('queue_number')->unique();
+            $table->string('queue_number')->unique()->nullable();
             $table->date('book_date');
             $table->integer('total_tire');
             $table->string('size_tire');
@@ -22,8 +22,10 @@ return new class extends Migration
             $table->string('detail_order');
             $table->string('pict_down_payment')->nullable();
             $table->string('price_down_payment')->nullable();
+            $table->string('status_dp')->nullable();
             $table->string('pict_full_payment')->nullable();
             $table->string('price_full_payment')->nullable();
+            $table->string('status_fp')->nullable();
             $table->string('payment_status');
             $table->string('tire_status');
             $table->string('status');

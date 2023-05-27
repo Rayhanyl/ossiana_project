@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Carbon\Carbon;
 use App\Models\Order;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Inspection;
 use App\Models\Scheduller;
 use Illuminate\Http\Request;
@@ -153,6 +154,52 @@ class ManagerController extends Controller
             dd($e);
         }
 
+    }
+
+    public function manager_production_report_page(){
+
+        $orders = Order::with('user')->get();
+        $order = $orders->count();
+        $approved = $orders->where('status','approved')->count();
+        $waiting = $orders->where('status','waiting')->count();
+        $rejected = $orders->whereIn('status', 'rejected')->count();
+        
+        return view('manager.production_report', compact('orders','order','approved','waiting','rejected'));
+
+    }
+
+    public function manager_production_report_pdf()
+    {
+        $currentDateTime = Carbon::now();
+        $formattedDateTime = $currentDateTime->format('Y-m-d H:i:s');
+    
+        $orders = Order::with('user')->get();
+    
+        $data = [
+            'orders' => $orders,
+            'formattedDateTime' => $formattedDateTime,
+            'order' => $orders->count(),
+            'approved' => $orders->where('status', 'approved')->count(),
+            'waiting' => $orders->where('status', 'waiting')->count(),
+            'rejected' => $orders->whereIn('status', ['rejected'])->count(),
+        ];
+        
+
+        $pdf = PDF::loadView('manager.productionpdf', $data);
+        $pdf->setPaper('A4', 'portrait');
+    
+        return $pdf->download('production_report.pdf');
+
+        // $currentDateTime = Carbon::now();
+        // $formattedDateTime = $currentDateTime->format('F d, Y');
+        // $orders = Order::with('user')->get();
+        // $data['orders'] = Order::with('user')->get();
+        // $order = $orders->count();
+        // $approved = $orders->where('status','approved')->count();
+        // $waiting = $orders->where('status','waiting')->count();
+        // $rejected = $orders->whereIn('status', 'rejected')->count();
+
+        // return view('manager.productionpdf',compact('formattedDateTime','orders','order','approved','waiting','rejected'));
     }
 
 }

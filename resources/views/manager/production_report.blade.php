@@ -155,7 +155,7 @@
             <div class="col-12 col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <table class="table" id="manager-table-dashboard">
+                        <table class="table" id="manager-table-production-report">
                             <thead>
                                 <tr>
                                     <th class="text-capitalize text-center">Customer</th>
@@ -219,7 +219,7 @@
     @push('script')
     <script>
         $(document).ready(function () {
-            $('#manager-table-dashboard').DataTable({
+            $('#manager-table-production-report').DataTable({
                 responsive: true,
                 lengthMenu: [
                     [5, 25, 50, -1],

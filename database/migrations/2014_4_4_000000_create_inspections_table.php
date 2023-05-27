@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('inspections', function (Blueprint $table) {
             $table->id();
             $table->foreignId('order_id')->constrained('orders');
+            $table->foreignId('user_id')->constrained('users');
             $table->string('file_inspection');
             $table->string('damage_type');
-            $table->string('minor_repair');
-            $table->string('major_repair');
             $table->string('inspection_costs');
-            $table->foreignId('user_id')->constrained('users');
+            $table->string('tire_arrival');
+            $table->string('status');
             $table->timestamps();
         });
     }
