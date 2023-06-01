@@ -8,7 +8,7 @@ use App\Models\Inspection;
 use App\Models\Scheduller;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
-
+use Svg\Tag\Rect;
 
 class ManagerController extends Controller
 {
@@ -35,6 +35,12 @@ class ManagerController extends Controller
 
         $orders = Order::where('id', $id)->get();
         $inspection = Inspection::with('order')->where('order_id', $id)->get();
+
+        if (empty($inspection)) {
+            $inspection = [];
+        }else{
+            $inspection = $inspection;
+        }
 
         return view('manager.inspect_order_detail',compact('orders','inspection'));
     }
@@ -202,6 +208,19 @@ class ManagerController extends Controller
         // $rejected = $orders->whereIn('status', 'rejected')->count();
 
         // return view('manager.productionpdf',compact('formattedDateTime','orders','order','approved','waiting','rejected'));
+    }
+
+    public function success_reparation(Request $request){
+
+        try {
+            Order::where('id', $request->order_id)->update([
+                'tire_status'        => 'success',
+            ]);
+
+            return redirect()->back();
+        } catch (\Throwable $e) {
+            dd($e);
+        }
     }
 
 }

@@ -54,4 +54,5 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/SchedullerAction', [ManagerController::class, 'manager_scheduller_action'])->name('manager.scheduller.action');
     Route::get('/ProductionReportPage', [ManagerController::class, 'manager_production_report_page'])->name('manager.production.report.page');
     Route::get('/ProductionReportPDF', [ManagerController::class, 'manager_production_report_pdf'])->name('manager.production.report.pdf');
+    Route::post('/SuccessReparation', [ManagerController::class, 'success_reparation'])->name('success.reparation');
 });

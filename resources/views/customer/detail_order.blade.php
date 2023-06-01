@@ -115,6 +115,9 @@
                                 @if ($order->status_dp == 'approved')
                                 <p>- Pembayaran DP telah di approve </p>
                                 @else
+                                @if ($order->status_dp == 'rejected')
+                                <p>- Pembayaran anda tidak valid masukan kembali bukti pembayaran. </p>
+                                @endif
                                 <form class="row" action="{{ route ('upload.dp') }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
@@ -141,6 +144,9 @@
                                 @endif
                                 @endif
                                 @if ($order->price_full_payment != null || $order->status_fp == 'rejected')
+                                @if ($order->status_fp == 'rejected')
+                                <p class="text-danger">- Pembayaran anda tidak valid masukan kembali bukti pembayaran. </p>
+                                @endif
                                 @if ($order->status_fp == 'approved')
                                 <p>- Pembayaran FP telah di approve </p>
                                 @else

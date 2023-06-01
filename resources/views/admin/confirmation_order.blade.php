@@ -111,7 +111,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
-                                @if ($order->status_dp == 'waiting'|| $order->status == 'rejected')
+                                @if ($order->status_dp == 'waiting')
                                 <form class="row" action="{{ route ('price.dp') }}" method="POST">
                                     @csrf
                                     <input type="hidden" value="{{ $order->id }}" name="order_id">
@@ -128,7 +128,7 @@
                                         <div class="text-white">.</div>
                                     </div>
                                 </form>
-                                @elseif ($order->payment_status == 'waiting')
+                                @elseif ($order->payment_status == 'waiting' || $order->status == 'rejected')
                                 <form class="row" action="{{ route ('confirmation.order') }}" method="POST">
                                     @csrf
                                     <input type="hidden" value="{{ $order->id }}" name="order_id">
@@ -194,7 +194,7 @@
                                         <h6>Picture Full Payment</h6>
                                         @if ($order->pict_full_payment == null)
                                         <p>Have not uploaded proof of payment.</p>
-                                        @else
+                                        @else   
                                         <img class="rounded w-75"
                                             src="{{ asset ('assets/fp/'.$order->pict_full_payment) }}"
                                             alt="FullPayment">

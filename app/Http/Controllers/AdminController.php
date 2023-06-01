@@ -104,7 +104,6 @@ class AdminController extends Controller
                 dd($e);
                 return redirect()->back();
             }
-            
         } else {
             
             $payment   = 'pay_dp';
@@ -183,6 +182,7 @@ class AdminController extends Controller
         }
 
     }
+
     public function status_fp(Request $request){
 
 

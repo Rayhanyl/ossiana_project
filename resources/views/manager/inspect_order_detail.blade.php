@@ -111,7 +111,7 @@
                     <div class="card-body">
                         <h3 class="mb-4">Inspect Tire Order</h3>
                         <div class="row">
-                            @if (empty($isnpection))
+                            @if ($inspection != null)
                                 @foreach ($inspection as $item)
                                 <div class="col-12">
                                     <p>Detail inspection</p>
@@ -125,52 +125,68 @@
                                         <div class="col-12 col-lg-3">
                                             <p>Costs: Rp {{ number_format($item->inspection_costs, 0, ',', '.') }}</p>
                                         </div>
+                                        @if($item->order->payment_status == 'paid')
+                                        <div class="col-12 col-lg-3">
+                                            <form class="row" action="{{ route ('success.reparation') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" value="{{ $order->id }}" name="order_id">
+                                                <div class="col my-auto">
+                                                    <button type="submit" class="btn bg-gradient-primary" {{ $item->order->tire_status == 'success' ? 'disabled':''}}>Tires have been taken</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        @else
                                         <div class="col-12 col-lg-3 text-center">
                                             <a href="{{ route ('manager.scheduller.page', $item->id) }}" class="btn btn-icon btn-3 bg-gradient-primary rounded-pill">
                                                 <span class="btn-inner--icon"><i class="ni ni-calendar-grid-58"></i> </span>
                                                 <span class="btn-inner--text">Scheduller Tire</span>
                                             </a>
                                         </div>
+                                        @endif
                                     </div>
                                     <hr>
                                 </div>  
                                 @endforeach
-                            @endif
-                            <div class="col-12">
-                                <form class="row" action="{{ route ('manager.inspect.action') }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    <input type="hidden" name="order_id" id="order_id" value="{{ $order->id }}">
-                                    <input type="hidden" name="user_id" id="user_id" value="{{ $order->user_id }}">
-                                    <div class="col-12 col-lg-3 form-group">
-                                        <label for="tire_arrival" class="form-control-label">Tire Arrival</label>
-                                        <input class="form-control" type="date" name="tire_arrival"
-                                            id="tire_arrival">
+                                    @if ($item->order->tire_status == 'success')
+                                    <p class="fw-bold">Ban Telah selesai di reparasi</p>
+                                    @else
+                                    <div class="col-12">
+                                        <form class="row" action="{{ route ('manager.inspect.action') }}" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            <input type="hidden" name="order_id" id="order_id" value="{{ $order->id }}">
+                                            <input type="hidden" name="user_id" id="user_id" value="{{ $order->user_id }}">
+                                            <div class="col-12 col-lg-3 form-group">
+                                                <label for="tire_arrival" class="form-control-label">Tire Arrival</label>
+                                                <input class="form-control" type="date" name="tire_arrival"
+                                                    id="tire_arrival">
+                                            </div>
+                                            <div class="col-12 col-lg-3 form-group">
+                                                <label for="damage_type" class="form-control-label">Damage Type</label>
+                                                <select class="form-control" name="damage_type" id="damage_type">
+                                                    <option>-- select --</option>
+                                                    <option value="minor">Minor</option>
+                                                    <option value="major">Major</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-12 col-lg-3 form-group">
+                                                <label for="inspection_cost" class="form-control-label">Inspection cost</label>
+                                                <input class="form-control" type="number" name="inspection_cost"
+                                                    id="inspection_cost">
+                                                <div id="cost_inspect" class="form-text"></div>
+                                            </div>
+                                            <div class="col-12 col-lg-3 form-group">
+                                                <label for="file_inspection" class="form-control-label">File Inspection</label>
+                                                <input class="form-control" type="file" name="file_inspection"
+                                                    id="file_inspection">
+                                            </div>
+                                            <div class="col-12 text-center">
+                                                <div class="text-white">.</div>
+                                                <button type="submit" class="btn bg-gradient-info w-45">Submit</button>
+                                            </div>
+                                        </form>
                                     </div>
-                                    <div class="col-12 col-lg-3 form-group">
-                                        <label for="damage_type" class="form-control-label">Damage Type</label>
-                                        <select class="form-control" name="damage_type" id="damage_type">
-                                            <option>-- select --</option>
-                                            <option value="minor">Minor</option>
-                                            <option value="major">Major</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-12 col-lg-3 form-group">
-                                        <label for="inspection_cost" class="form-control-label">Inspection cost</label>
-                                        <input class="form-control" type="number" name="inspection_cost"
-                                            id="inspection_cost">
-                                        <div id="cost_inspect" class="form-text"></div>
-                                    </div>
-                                    <div class="col-12 col-lg-3 form-group">
-                                        <label for="file_inspection" class="form-control-label">File Inspection</label>
-                                        <input class="form-control" type="file" name="file_inspection"
-                                            id="file_inspection">
-                                    </div>
-                                    <div class="col-12 text-center">
-                                        <div class="text-white">.</div>
-                                        <button type="submit" class="btn bg-gradient-info w-45">Submit</button>
-                                    </div>
-                                </form>
-                            </div>
+                                    @endif
+                                @endif
                         </div>
                     </div>
                 </div>

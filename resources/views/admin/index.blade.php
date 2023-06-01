@@ -168,7 +168,9 @@
                                 <td class="text-capitalize text-center">{{ $order->user->name }}</td>
                                 <td class="text-capitalize text-center">{{ $order->order_code }}</td>
                                 <td class="text-capitalize text-center">{{ $order->book_date }}</td>
-                                <td class="text-capitalize text-center">{{ $order->payment_status }}</td>
+                                <td class="text-capitalize text-center">
+                                  {{ $order->payment_status }}
+                                </td>
                                 <td class="text-capitalize text-center">{{ $order->tire_status }}</td>
                                 <td class="text-capitalize text-center">
                                   <p>
