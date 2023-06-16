@@ -49,17 +49,17 @@ class AuthenticationController extends Controller
 
             if($users->role_id == '1'){
 
-                Alert::success('Success','Selamat Anda Berhasil login');
+                Alert::toast('Selamat Anda Berhasil login','success');
                 return redirect()->route('admin.dashboard');
                 
             } elseif ($users->role_id == '2'){
                 
-                Alert::success('Success','Selamat Anda Berhasil login');
-                return redirect()->route('customer.dashboard');
+                Alert::toast('Selamat Anda Berhasil login','success');
+                return redirect()->route('customer.dashboard'); 
 
             }elseif ($users->role_id == '3'){
 
-                Alert::success('Success','Selamat Anda Berhasil login');
+                Alert::toast('Selamat Anda Berhasil login','success');
                 return redirect()->route('manager.dashboard');
 
             }                   
@@ -84,7 +84,7 @@ class AuthenticationController extends Controller
                 'role_id'      => 2,
             ]);
 
-            Alert::success('Success', 'Berhasil membuat account');
+            Alert::toast('Berhasil membuat account','success');
             return redirect()->route('login.page');
 
         } catch (\Throwable $e) {
@@ -104,7 +104,7 @@ class AuthenticationController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         session()->flush();
-        Alert::success('Success', 'Berhasil logout');
+        Alert::toast('Berhasil logout', 'success');
         return redirect()->route('landing.page')->with('success','Berhasil Logout');
         
     }

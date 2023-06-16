@@ -47,151 +47,164 @@
 
         @foreach ($orders as $order)
 
-        <div class="row">
-            <div class="col-12 my-2">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Detail order</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="row g-3">
-                            <div class="col-12 col-lg-2">
-                                <h5>Book date</h5>
-                                <p class="detail-order-text-child text-capitalize">
-                                    {{ \Carbon\Carbon::parse($order->book_date)->format('d F Y') }}</p>
-                            </div>
-                            <div class="col-12 col-lg-3">
-                                <h5>Order code</h5>
-                                <p class="detail-order-text-child">{{ $order->order_code }}</p>
-                            </div>
-                            <div class="col-12 col-lg-3">
-                                <h5>Queue number</h5>
-                                @if ($order->queue_number == null)
-                                <p class="detail-order-text-child text-capitalize">wait for the admin to give the queue
-                                    number</p>
-                                @else
-                                <p class="detail-order-text-child">{{ $order->queue_number }}</p>
-                                @endif
-                            </div>
-                            <div class="col-12 col-lg-2">
-                                <h5>Status</h5>
-                                <p class="detail-order-text-child text-capitalize">{{ $order->status }}</p>
-                            </div>
-                            <div class="col-12 col-lg-2">
-                                <h5>Payment status</h5>
-                                <p class="detail-order-text-child text-capitalize">{{ $order->payment_status }}</p>
-                            </div>
-                            <div class="col-12 col-lg-3 text-center">
-                                <h5>Tire delivery</h5>
-                                <p class="detail-order-text-child text-capitalize">
-                                    {{ \Carbon\Carbon::parse($order->delivery_tire)->format('d F Y') }}</p>
-                            </div>
-                            <div class="col-12 col-lg-3 text-center">
-                                <h5>Total tire</h5>
-                                <p class="detail-order-text-child text-capitalize">{{ $order->total_tire }}</p>
-                            </div>
-                            <div class="col-12 col-lg-3 text-center">
-                                <h5>Size tire</h5>
-                                <p class="detail-order-text-child text-capitalize">{{ $order->size_tire}}</p>
-                            </div>
-                            <div class="col-12 col-lg-3 text-center">
-                                <h5>Tire status</h5>
-                                <p class="detail-order-text-child text-capitalize">{{ $order->tire_status }}</p>
-                            </div>
-                            <div class="col-12">
-                                <h5>Spesification Tire</h5>
-                                <p class="detail-order-text-child-tire">{{ $order->detail_order }}</p>
+            <div class="row">
+                <div class="col-12 my-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Detail order</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-12 col-lg-2">
+                                    <h5>Book date</h5>
+                                    <p class="detail-order-text-child text-capitalize">
+                                        {{ \Carbon\Carbon::parse($order->book_date)->format('d F Y') }}</p>
+                                </div>
+                                <div class="col-12 col-lg-3">
+                                    <h5>Order code</h5>
+                                    <p class="detail-order-text-child">{{ $order->order_code }}</p>
+                                </div>
+                                <div class="col-12 col-lg-3">
+                                    <h5>Queue number</h5>
+                                    @if ($order->queue_number == null)
+                                    <p class="detail-order-text-child text-capitalize">wait for the admin to give the queue
+                                        number</p>
+                                    @else
+                                    <p class="detail-order-text-child">{{ $order->queue_number }}</p>
+                                    @endif
+                                </div>
+                                <div class="col-12 col-lg-2">
+                                    <h5>Status</h5>
+                                    <p class="detail-order-text-child text-capitalize">{{ $order->status }}</p>
+                                </div>
+                                <div class="col-12 col-lg-2">
+                                    <h5>Payment status</h5>
+                                    <p class="detail-order-text-child text-capitalize">{{ $order->payment_status }}</p>
+                                </div>
+                                <div class="col-12 col-lg-3 text-center">
+                                    <h5>Tire delivery</h5>
+                                    <p class="detail-order-text-child text-capitalize">
+                                        {{ \Carbon\Carbon::parse($order->delivery_tire)->format('d F Y') }}</p>
+                                </div>
+                                <div class="col-12 col-lg-3 text-center">
+                                    <h5>Total tire</h5>
+                                    <p class="detail-order-text-child text-capitalize">{{ $order->total_tire }}</p>
+                                </div>
+                                <div class="col-12 col-lg-3 text-center">
+                                    <h5>Size tire</h5>
+                                    <p class="detail-order-text-child text-capitalize">{{ $order->size_tire}}</p>
+                                </div>
+                                <div class="col-12 col-lg-3 text-center">
+                                    <h5>Tire status</h5>
+                                    <p class="detail-order-text-child text-capitalize">{{ $order->tire_status }}</p>
+                                </div>
+                                <div class="col-12">
+                                    <h5>Spesification Tire</h5>
+                                    <p class="detail-order-text-child-tire">{{ $order->detail_order }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-12 my-2">
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="mb-4">Inspect Tire Order</h3>
-                        <div class="row">
-                            @if ($inspection != null)
-                                @foreach ($inspection as $item)
-                                <div class="col-12">
-                                    <p>Detail inspection</p>
-                                    <div class="row">
-                                        <div class="col-12 col-lg-3">
-                                            <p>Tire Arrival : {{ $item->tire_arrival }}</p>
-                                        </div>
-                                        <div class="col-12 col-lg-3">
-                                            <p class="text-capitalize">Damage Type: {{ $item->damage_type }}</p>
-                                        </div>
-                                        <div class="col-12 col-lg-3">
-                                            <p>Costs: Rp {{ number_format($item->inspection_costs, 0, ',', '.') }}</p>
-                                        </div>
-                                        @if($item->order->payment_status == 'paid')
-                                        <div class="col-12 col-lg-3">
-                                            <form class="row" action="{{ route ('success.reparation') }}" method="POST">
+                <div class="col-12 my-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="mb-4">Inspect Tire Order</h3>
+                            <div class="row">
+                                @if (empty($inspection))
+                                        <div class="col-12">
+                                            <form class="row" action="{{ route ('manager.inspect.action') }}" method="POST" enctype="multipart/form-data">
                                                 @csrf
-                                                <input type="hidden" value="{{ $order->id }}" name="order_id">
-                                                <div class="col my-auto">
-                                                    <button type="submit" class="btn bg-gradient-primary" {{ $item->order->tire_status == 'success' ? 'disabled':''}}>Tires have been taken</button>
+                                                <input type="hidden" name="order_id" id="order_id" value="{{ $order->id }}">
+                                                <input type="hidden" name="user_id" id="user_id" value="{{ $order->user_id }}">
+                                                <div class="col-12 col-lg-3 form-group">
+                                                    <label for="tire_arrival" class="form-control-label">Tire Arrival</label>
+                                                    <input class="form-control" type="date" name="tire_arrival"
+                                                        id="tire_arrival">
+                                                </div>
+                                                <div class="col-12 col-lg-3 form-group">
+                                                    <label for="damage_type" class="form-control-label">Damage Type</label>
+                                                    <select class="form-control" name="damage_type" id="damage_type">
+                                                        <option>-- select --</option>
+                                                        <option value="minor">Minor</option>
+                                                        <option value="major">Major</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-12 col-lg-3 form-group">
+                                                    <label for="inspection_cost" class="form-control-label">Inspection cost</label>
+                                                    <input class="form-control" type="number" name="inspection_cost"
+                                                        id="inspection_cost">
+                                                    <div id="cost_inspect" class="form-text"></div>
+                                                </div>
+                                                <div class="col-12 col-lg-3 form-group">
+                                                    <label for="file_inspection" class="form-control-label">File Inspection</label>
+                                                    <input class="form-control" type="file" name="file_inspection"
+                                                        id="file_inspection">
+                                                </div>
+                                                <div class="col-12 text-center">
+                                                    <div class="text-white">.</div>
+                                                    <button type="submit" class="btn bg-gradient-info w-45">Submit</button>
                                                 </div>
                                             </form>
                                         </div>
-                                        @else
-                                        <div class="col-12 col-lg-3 text-center">
-                                            <a href="{{ route ('manager.scheduller.page', $item->id) }}" class="btn btn-icon btn-3 bg-gradient-primary rounded-pill">
-                                                <span class="btn-inner--icon"><i class="ni ni-calendar-grid-58"></i> </span>
-                                                <span class="btn-inner--text">Scheduller Tire</span>
-                                            </a>
-                                        </div>
-                                        @endif
-                                    </div>
-                                    <hr>
-                                </div>  
-                                @endforeach
-                                    @if ($item->order->tire_status == 'success')
-                                    <p class="fw-bold">Ban Telah selesai di reparasi</p>
-                                    @else
-                                    <div class="col-12">
-                                        <form class="row" action="{{ route ('manager.inspect.action') }}" method="POST" enctype="multipart/form-data">
-                                            @csrf
-                                            <input type="hidden" name="order_id" id="order_id" value="{{ $order->id }}">
-                                            <input type="hidden" name="user_id" id="user_id" value="{{ $order->user_id }}">
-                                            <div class="col-12 col-lg-3 form-group">
-                                                <label for="tire_arrival" class="form-control-label">Tire Arrival</label>
-                                                <input class="form-control" type="date" name="tire_arrival"
-                                                    id="tire_arrival">
+                                @else        
+                                    @foreach ($inspection as $item)
+                                        <div class="col-12">
+                                            <p>Detail inspection</p>
+                                            <div class="row">
+                                                <div class="col-12 col-lg-3">
+                                                    <p>Tire Arrival : {{ $item->tire_arrival }}</p>
+                                                </div>
+                                                <div class="col-12 col-lg-3">
+                                                    <p class="text-capitalize">Damage Type: {{ $item->damage_type }}</p>
+                                                </div>
+                                                <div class="col-12 col-lg-3">
+                                                    <p>Costs: Rp {{ number_format($item->inspection_costs, 0, ',', '.') }}</p>
+                                                </div>
+                                                @if($item->order->payment_status == 'paid')
+                                                <div class="col-12 col-lg-3">
+                                                    <form class="row" action="{{ route ('success.reparation') }}" method="POST">
+                                                        @csrf
+                                                        <input type="hidden" value="{{ $order->id }}" name="order_id">
+                                                        <div class="col my-auto">
+                                                            <button type="submit" class="btn bg-gradient-primary" {{ $item->order->tire_status == 'success' ? 'disabled':''}}>Tires have been taken</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                @else
+                                                <div class="col-12 col-lg-3 text-center">
+                                                    <a href="{{ route ('manager.scheduller.page', $item->id) }}" class="btn btn-icon btn-3 bg-gradient-primary rounded-pill">
+                                                        <span class="btn-inner--icon"><i class="ni ni-calendar-grid-58"></i> </span>
+                                                        <span class="btn-inner--text">Scheduller Tire</span>
+                                                    </a>
+                                                </div>
+                                                @endif
                                             </div>
-                                            <div class="col-12 col-lg-3 form-group">
-                                                <label for="damage_type" class="form-control-label">Damage Type</label>
-                                                <select class="form-control" name="damage_type" id="damage_type">
-                                                    <option>-- select --</option>
-                                                    <option value="minor">Minor</option>
-                                                    <option value="major">Major</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-12 col-lg-3 form-group">
-                                                <label for="inspection_cost" class="form-control-label">Inspection cost</label>
-                                                <input class="form-control" type="number" name="inspection_cost"
-                                                    id="inspection_cost">
-                                                <div id="cost_inspect" class="form-text"></div>
-                                            </div>
-                                            <div class="col-12 col-lg-3 form-group">
-                                                <label for="file_inspection" class="form-control-label">File Inspection</label>
-                                                <input class="form-control" type="file" name="file_inspection"
-                                                    id="file_inspection">
-                                            </div>
-                                            <div class="col-12 text-center">
-                                                <div class="text-white">.</div>
-                                                <button type="submit" class="btn bg-gradient-info w-45">Submit</button>
-                                            </div>
+                                            <hr>
+                                        </div>  
+                                        @if ($item->order->tire_status == 'success')
+                                        <form action="{{ route ('upload.production.report') }}" enctype="multipart/form-data" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="order_id" value="{{ $order->id }}">
+                                        <label for="production_report">Upload file production report</label>
+                                        <input class="form-control w-30" type="file" name="production_report" id="production_report">
+                                        <button class="btn bg-gradient-primary my-2">Submit</button>
                                         </form>
-                                    </div>
-                                    @endif
+                                        <hr>
+                                        <p class="fw-bold">Ban Telah selesai di reparasi</p>
+                                            @if ($item->order->production_file != null)
+                                                <object data="{{ asset('assets/production/' . $item->order->production_file) }}" type="application/pdf" width="100%" height="600px">
+                                                    <p>Maaf, browser Anda tidak mendukung penampilan PDF. Silakan <a href="{{ asset('assets/production/' . $item->order->production_file) }}">unduh file PDF</a> untuk melihatnya.</p>
+                                                </object>
+                                            @endif
+                                        @endif  
+                                    @endforeach
                                 @endif
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
         @endforeach
 

@@ -66,7 +66,7 @@ class CustomerController extends Controller
                 'status'                => 'waiting',
             ]);
             
-            Alert::success('Success', 'Berhasil Order');
+            Alert::toast('Berhasil Order','success'); 
             return redirect()->route('order.page');
 
         } catch (\Throwable $e) {
@@ -99,7 +99,7 @@ class CustomerController extends Controller
                 'pict_down_payment' => $nama_file,
             ]);
 
-            Alert::success('Success','Successful upload payment'); 
+            Alert::toast('Successful upload payment','success'); 
             return redirect()->back();
             
         } catch (\Throwable $e) {
@@ -112,7 +112,6 @@ class CustomerController extends Controller
     }
 
     public function upload_fp(Request $request){
-
         try {
         
             $file = $request->file('file_fp');
@@ -124,7 +123,7 @@ class CustomerController extends Controller
                 'pict_full_payment' => $nama_file,
             ]);
 
-            Alert::success('Success','Successful upload payment'); 
+            Alert::toast('Successful upload payment','success'); 
             return redirect()->back();
             
         } catch (\Throwable $e) {

@@ -81,7 +81,7 @@
                   </div>
                   <div class="card-body">
                     <div class="">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur aut ea, rem nam impedit, omnis minima mollitia excepturi aperiam quia dolorum, ipsa aspernatur magni temporibus!.</p>
+                        <p>PT.Ossiana Sakti Ekamaju merupakan website yang menyediakan jasa reparasi ban berukuran 45/65 - 45 inch dan 27.00 - 49 inch dengan kualitas terbaik.</p>
                       <button type="button" class="btn bg-gradient-info w-50 mt-4 mb-0">Get started</button>
                     </div>
                   </div>

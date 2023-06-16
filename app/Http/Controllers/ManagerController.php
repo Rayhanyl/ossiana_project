@@ -20,7 +20,6 @@ class ManagerController extends Controller
         $approved = $orders->where('status','approved')->count();
         $waiting = $orders->where('status','waiting')->count();
         $rejected = $orders->whereIn('status', 'rejected')->count();
-        
         return view('manager.index', compact('orders','order','approved','waiting','rejected'));
     }
 
@@ -32,18 +31,15 @@ class ManagerController extends Controller
     }
 
     public function manager_detail_page($id){
-
         $orders = Order::where('id', $id)->get();
         $inspection = Inspection::with('order')->where('order_id', $id)->get();
-
-        if (empty($inspection)) {
+        if ($inspection->isEmpty()) {
             $inspection = [];
-        }else{
-            $inspection = $inspection;
         }
-
-        return view('manager.inspect_order_detail',compact('orders','inspection'));
+    
+        return view('manager.inspect_order_detail', compact('orders', 'inspection'));
     }
+    
 
     public function manager_inspect_action(Request $request){
 
@@ -223,4 +219,26 @@ class ManagerController extends Controller
         }
     }
 
-}
+    public function upload_production_report(Request $request){
+        try {
+        
+            $file = $request->file('production_report');
+            $nama_file = time()."_".$file->getClientOriginalName();
+            $tujuan_upload = public_path().'/assets/production';
+            $file->move($tujuan_upload,$nama_file);
+
+            Order::where('id', $request->order_id)->update([
+                'production_file' => $nama_file,
+            ]);
+
+            Alert::toast('Berhasil upload', 'success');
+            return redirect()->back();
+            
+        } catch (\Throwable $e) {
+
+            dd($e);
+        }
+
+    }
+
+}   

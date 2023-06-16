@@ -55,4 +55,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/ProductionReportPage', [ManagerController::class, 'manager_production_report_page'])->name('manager.production.report.page');
     Route::get('/ProductionReportPDF', [ManagerController::class, 'manager_production_report_pdf'])->name('manager.production.report.pdf');
     Route::post('/SuccessReparation', [ManagerController::class, 'success_reparation'])->name('success.reparation');
+    Route::post('/UploadProductionReport', [ManagerController::class, 'upload_production_report'])->name('upload.production.report');
 });
