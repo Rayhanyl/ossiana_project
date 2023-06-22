@@ -149,6 +149,7 @@ class ManagerController extends Controller
 
             Order::where('id', $request->order_id)->update([
                 'tire_status' => 'reparation',
+                'due_date' => $request->estimasi_due_date,
             ]);
 
             Alert::success('Success','Berhasil melakukan scheduller');

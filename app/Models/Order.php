@@ -33,6 +33,8 @@ class Order extends Model
         'tire_status',
         'status',
         'user_id',
+        'production_file',
+        'due_date',
     ];
 
     public function user()

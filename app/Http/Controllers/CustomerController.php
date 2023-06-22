@@ -82,7 +82,6 @@ class CustomerController extends Controller
     public function customer_detail_page($id){
 
         $orders = Order::where('id', $id)->get();
-
         return view('customer.detail_order',compact('orders'));
     }
 

@@ -58,7 +58,8 @@
                             <div class="col-12 col-lg-2">
                                 <h5>Book date</h5>
                                 <p class="detail-order-text-child text-capitalize">
-                                    {{ \Carbon\Carbon::parse($order->book_date)->format('d F Y') }}</p>
+                                    {{ \Carbon\Carbon::parse($order->book_date)->format('d F Y') }}
+                                </p>
                             </div>
                             <div class="col-12 col-lg-3">
                                 <h5>Order code</h5>
@@ -98,10 +99,16 @@
                                 <h5>Tire status</h5>
                                 <p class="detail-order-text-child text-capitalize">{{ $order->tire_status }}</p>
                             </div>
-                            <div class="col-12">
+                            <div class="col-12 col-lg-3">
                                 <h5>Spesification Tire</h5>
                                 <p class="detail-order-text-child-tire">{{ $order->detail_order }}</p>
                             </div>
+                            @if ($order->due_date != null)
+                                <div class="col-12 col-lg-3">
+                                    <h5>Estimation Due Date</h5>
+                                    <p class="detail-order-text-child-tire">{{ \Carbon\Carbon::parse($order->due_date)->format('d F Y') }}</p>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
